@@ -1,0 +1,66 @@
+version: '3.3'
+
+services:
+  laminas:
+    build:
+      args:
+        SERVER_UID: $SERVER_UID
+        ENV: $ENV
+      context: ./docker/laminas
+    links:
+      - mysql
+      - mailcatcher
+    user: $SERVER_UID
+    volumes:
+      - .:/var/www/html
+      - /etc/localtime:/etc/localtime/:ro
+
+  nginx:
+    build:
+      args:
+        SERVER_UID: $SERVER_UID
+        HOSTNAME: $HOSTNAME
+      context: ./docker/nginx
+    volumes:
+      - ./:/var/www/html:ro
+    links:
+      - laminas
+    ports:
+      - 80:80
+      - 443:443
+
+  mailcatcher:
+    image: mailhog/mailhog
+    environment:
+      #MH_HOSTNAME: mail.TEST_DOMAIN
+      MH_API_BIND_ADDR: 0.0.0.0:80
+      MH_UI_BIND_ADDR: 0.0.0.0:80
+    restart: always
+    ports:
+      - 8081:80
+    user: root
+
+  mysql:
+    image: mysql:5.7
+    #  restart: always
+    #  command: --max_allowed_packet=902505856 --sql-mode=""
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_DATABASE: task-manager
+    volumes:
+      - ./data/docker-files/mysql-db:/var/lib/mysql # сохранение файлов БД на хосте
+      #    - ./data/docker/mysql/my.cnf:/etc/mysql/my.cnf
+      - /etc/localtime:/etc/localtime/:ro
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:5.0.2
+    restart: always
+    links:
+      - mysql
+    environment:
+      MYSQL_USERNAME: root
+      MYSQL_ROOT_PASSWORD: 12345
+      PMA_ARBITRARY: 1
+      PMA_HOST: mysql_1
+    ports:
+      - 8082:80

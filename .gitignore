@@ -1,0 +1,16 @@
+.vagrant/
+vendor/
+config/development.config.php
+data/cache/*
+!data/cache/.gitkeep
+phpunit.xml
+.phpunit.result.cache
+.idea
+.env
+composer.phar
+composer.lock
+phinx.yml
+.bash_history
+.composer
+data/docker-files/*
+!data/docker-files/.gitkeep

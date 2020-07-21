@@ -1,0 +1,23 @@
+<?php
+/** @var \Application\View\Renderer\PhpRenderer $this */
+/** @var \Auth\Form\RegisterForm $form */
+
+$form->prepare();
+
+echo $this->form()->openTag($form);
+?>
+    <div class="form-group">
+        <?php echo $this->formRow($form->get('email')); ?>
+    </div>
+    <div class="form-group">
+        <?php echo $this->formRow($form->get('password')); ?>
+    </div>
+    <div class="form-group">
+        <?php echo $this->formRow($form->get('password_confirm')); ?>
+    </div>
+<?php echo $this->formElement($form->get('send')); ?>
+    <div class="form-group">
+        <a href="<?php echo $this->url('user/login'); ?>">Вход</a>
+    </div>
+<?php
+echo $this->form()->closeTag();

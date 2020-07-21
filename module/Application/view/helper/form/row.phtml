@@ -1,0 +1,22 @@
+<?php
+
+use Laminas\Form\ElementInterface;
+
+/** @var \Application\View\Renderer\PhpRenderer $this */
+/** @var string $label */
+/** @var bool $renderErrors */
+/** @var ElementInterface $element */
+
+if ($element->getValue()) {
+    $element->setAttribute('class', $element->getAttribute('class').' is-valid');
+}
+?>
+<div class="form-group">
+    <label><?php echo $label; ?>
+        <?php echo $this->formElement($element); ?>
+        <?php
+        if ($renderErrors) {
+            echo $this->formElementErrors($element);
+        } ?>
+    </label>
+</div>

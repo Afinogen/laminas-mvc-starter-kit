@@ -1,0 +1,85 @@
+{
+  "name": "afinogen/laminas-mvc-starter-kit",
+  "description": "Laminas MVC Skeleton Application",
+  "type": "project",
+  "license": "BSD-3-Clause",
+  "keywords": [
+    "laminas",
+    "mvc",
+    "skeleton",
+    "framework"
+  ],
+  "config": {
+    "optimize-autoloader": true
+  },
+  "require": {
+    "php": "^7.3",
+    "ext-mbstring": "*",
+    "ext-intl": "*",
+    "ext-pdo": "*",
+    "ext-json": "*",
+    "laminas/laminas-component-installer": "^1.0 || ^2.1",
+    "laminas/laminas-development-mode": "^3.2",
+    "laminas/laminas-mvc": "^3.1.1",
+    "laminas/laminas-cache": "^2.9.0",
+    "laminas/laminas-db": "^2.10.0",
+    "laminas/laminas-mvc-form": "^1.0",
+    "laminas/laminas-json": "^3.1.2",
+    "laminas/laminas-log": "^2.11",
+    "laminas/laminas-mvc-plugins": "^1.0.1",
+    "laminas/laminas-session": "^2.9.1",
+    "symfony/console": "^5.1",
+    "robmorgan/phinx": "^0.12.3",
+    "symfony/yaml": "^5.1",
+    "vlucas/phpdotenv": "^5.1",
+    "tekill/env-diff": "dev-add-new-version-symfony-console",
+    "laminas/laminas-authentication": "^2.7",
+    "laminas/laminas-permissions-acl": "^2.7"
+  },
+  "autoload": {
+    "psr-4": {
+      "Application\\": "module/Application/src/",
+      "Auth\\": "module/Auth/src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "ApplicationTest\\": "module/Application/test/",
+      "AuthTest\\": "module/Auth/test/"
+    }
+  },
+  "scripts": {
+    "cs-check": "phpcs",
+    "cs-fix": "phpcbf",
+    "development-disable": "laminas-development-mode disable",
+    "development-enable": "laminas-development-mode enable",
+    "development-status": "laminas-development-mode status",
+    "post-create-project-cmd": [
+      "@development-enable",
+      "php bin/update-gitignore.php"
+    ],
+    "serve": "php -S 0.0.0.0:8080 -t public",
+    "test": "phpunit",
+    "post-install-cmd": [
+      "LF\\EnvDiff\\Composer\\ScriptHandler::actualizeEnv"
+    ],
+    "post-update-cmd": [
+      "LF\\EnvDiff\\Composer\\ScriptHandler::actualizeEnv"
+    ],
+    "post-autoload-dump": [
+      "LF\\EnvDiff\\Composer\\ScriptHandler::actualizeEnv"
+    ]
+  },
+  "require-dev": {
+    "laminas/laminas-developer-tools": "^2.0.1",
+    "laminas/laminas-test": "^3.3.0"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "repositories": [
+    {
+      "type": "github",
+      "url": "https://github.com/Afinogen/env-diff.git"
+    }
+  ]
+}
