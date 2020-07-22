@@ -16,6 +16,9 @@ class AuthorizeServiceFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        return new AuthorizeService($container->get(Role::class));
+        return new AuthorizeService(
+            $container->get(Role::class),
+            $container->get(AuthenticationService::class)
+        );
     }
 }

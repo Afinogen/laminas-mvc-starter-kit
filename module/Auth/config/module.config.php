@@ -4,8 +4,6 @@ declare(strict_types=1);
 namespace Auth;
 
 use Laminas\Router\Http\Literal;
-use Laminas\Router\Http\Segment;
-use Laminas\ServiceManager\Factory\InvokableFactory;
 
 return [
     'router'       => [
@@ -17,6 +15,9 @@ return [
                     'defaults' => [
                         'controller' => Controller\LoginController::class,
                         'action'     => 'index',
+                        'acl'        => [
+                            'roles' => ['user'],
+                        ],
                     ],
                 ],
                 'may_terminate' => true,
@@ -28,6 +29,9 @@ return [
                             'defaults' => [
                                 'controller' => Controller\LoginController::class,
                                 'action'     => 'login',
+                                'acl'        => [
+                                    'roles' => ['guest'],
+                                ],
                             ],
                         ],
                     ],
@@ -38,6 +42,9 @@ return [
                             'defaults' => [
                                 'controller' => Controller\RegisterController::class,
                                 'action'     => 'register',
+                                'acl'        => [
+                                    'roles' => ['guest'],
+                                ],
                             ],
                         ],
                     ],

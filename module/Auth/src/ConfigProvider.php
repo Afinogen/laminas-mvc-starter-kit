@@ -33,15 +33,18 @@ class ConfigProvider
 //            ],
             'factories' => [
                 //Forms
-                Form\RegisterForm::class             => Form\RegisterFormFactory::class,
-                Form\LoginForm::class                => Form\LoginFormFactory::class,
+                Form\RegisterForm::class                  => Form\RegisterFormFactory::class,
+                Form\LoginForm::class                     => Form\LoginFormFactory::class,
                 //Services
-                Service\RegistrationService::class   => Service\RegistrationServiceFactory::class,
-                Service\AuthenticationService::class => Service\AuthenticationServiceFactory::class,
-                Service\AuthorizeService::class      => Service\AuthorizeServiceFactory::class,
+                Service\RegistrationService::class        => Service\RegistrationServiceFactory::class,
+                Service\AuthenticationService::class      => Service\AuthenticationServiceFactory::class,
+                Service\AuthorizeService::class           => Service\AuthorizeServiceFactory::class,
                 //Mappers
-                Mapper\User::class                   => Mapper\UserFactory::class,
-                Mapper\Role::class                   => Mapper\RoleFactory::class,
+                Mapper\User::class                        => Mapper\UserFactory::class,
+                Mapper\Role::class                        => Mapper\RoleFactory::class,
+                //Listeners
+                Listener\RouteListener::class             => Listener\RouteListenerFactory::class,
+                Listener\RouteAccessDeniedStrategy::class => InvokableFactory::class,
             ],
             'aliases'   => [
             ],

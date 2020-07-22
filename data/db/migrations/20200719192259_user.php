@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+use Phinx\Db\Adapter\MysqlAdapter;
+use Phinx\Db\Table\Column;
 use Phinx\Migration\AbstractMigration;
 
 final class User extends AbstractMigration
@@ -18,24 +20,24 @@ final class User extends AbstractMigration
         $table = $this->table('user');
         $table
             ->addColumn(
-                (new \Phinx\Db\Table\Column())
-                ->setType('string')
+                (new Column())
+                ->setType(Column::STRING)
                 ->setName('email')
                 ->setLimit(64)
                 ->setNull(false)
             )
             ->addColumn(
-                (new \Phinx\Db\Table\Column())
-                    ->setType('string')
+                (new Column())
+                    ->setType(Column::STRING)
                     ->setName('password')
                     ->setLimit(255)
                     ->setNull(false)
             )
             ->addColumn(
-                (new \Phinx\Db\Table\Column())
-                    ->setType('integer')
+                (new Column())
+                    ->setType(Column::INTEGER)
                     ->setName('is_deleted')
-                    ->setLimit(\Phinx\Db\Adapter\MysqlAdapter::INT_TINY)
+                    ->setLimit(MysqlAdapter::INT_TINY)
                     ->setNull(false)
                     ->setSigned(false)
                     ->setDefault(0)

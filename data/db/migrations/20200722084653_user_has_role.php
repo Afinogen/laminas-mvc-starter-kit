@@ -5,7 +5,7 @@ use Phinx\Db\Adapter\MysqlAdapter;
 use Phinx\Db\Table\Column;
 use Phinx\Migration\AbstractMigration;
 
-final class Role extends AbstractMigration
+final class UserHasRole extends AbstractMigration
 {
     /**
      * Change Method.
@@ -15,38 +15,39 @@ final class Role extends AbstractMigration
      * Remember to call "create()" or "update()" and NOT "save()" when working
      * with the Table class.
      */
-    public function change(): void
+    public function up(): void
     {
         $table = $this->table(
-            'role', [
-                'id'          => false,
-                'primary_key' => ['id'],
+            'user_has_role', [
+                'id' => false,
             ]
         );
         $table
             ->addColumn(
                 (new Column())
+                    ->setName('user_id')
                     ->setType(Column::INTEGER)
-                    ->setName('id')
-                    ->setLimit(MysqlAdapter::INT_SMALL)
+                    ->setLimit(MysqlAdapter::INT_REGULAR)
                     ->setNull(false)
             )
             ->addColumn(
                 (new Column())
-                    ->setType(Column::STRING)
-                    ->setName('name')
-                    ->setLimit(16)
-                    ->setNull(false)
-            )
-            ->addColumn(
-                (new Column())
+                    ->setName('role_id')
                     ->setType(Column::INTEGER)
-                    ->setName('parent_id')
                     ->setLimit(MysqlAdapter::INT_SMALL)
-                    ->setNull(true)
+                    ->setNull(false)
             )
             ->addForeignKey(
-                'parent_id',
+                'user_id',
+                'user',
+                'id',
+                [
+                    'delete' => 'CASCADE',
+                    'update' => 'CASCADE',
+                ]
+            )
+            ->addForeignKey(
+                'role_id',
                 'role',
                 'id',
                 [
@@ -54,23 +55,23 @@ final class Role extends AbstractMigration
                     'update' => 'CASCADE',
                 ]
             )
+            ->addIndex(
+                [
+                    'user_id',
+                    'role_id',
+                ],
+                ['unique' => true]
+            )
             ->save();
-        if ($this->isMigratingUp()) {
-            $table->insert(
-                [
-                    'id'        => 1,
-                    'name'      => 'guest',
-                    'parent_id' => null,
-                ]
-            );
-            $table->insert(
-                [
-                    'id'        => 2,
-                    'name'      => 'user',
-                    'parent_id' => 1,
-                ]
-            );
-            $table->saveData();
-        }
+    }
+
+    public function down(): void
+    {
+        $table = $this->table('user_has_role');
+        $table->dropForeignKey('user_id');
+        $table->dropForeignKey('role_id');
+        $table->drop();
+        $table->save();
+
     }
 }

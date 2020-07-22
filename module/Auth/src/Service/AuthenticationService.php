@@ -59,7 +59,7 @@ class AuthenticationService
             );
 
         $result = $authAdapter->authenticate();
-        if ($result->isValid()) {
+        if ($result->isValid() && $_saveAuth) {
             $obj = $authAdapter->getResultRowObject();
             $this->saveUserToSession((int)$obj->id);
         }
@@ -84,5 +84,13 @@ class AuthenticationService
     public function saveUserToSession(int $_id)
     {
         $this->_sessionContainer->offsetSet('user', $_id);
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getUserIdFromSession(): ?int
+    {
+        return $this->_sessionContainer->offsetGet('user');
     }
 }

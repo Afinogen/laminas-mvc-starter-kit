@@ -53,8 +53,6 @@ class LoginController extends AbstractController
      */
     public function loginAction()
     {
-        $this->_authorizeService->loadRoles();exit;
-
         $form = $this->_loginForm;
         if ($this->getRequest()->isPost()) {
             $form->setData($this->getRequest()->getPost());

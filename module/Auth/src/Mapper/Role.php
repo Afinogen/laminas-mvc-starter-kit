@@ -7,6 +7,7 @@ use Application\Mapper\AbstractMapper;
 use Application\Mapper\Hydrator\ClassMethodsHydrator;
 use Application\Mapper\Hydrator\HydratingResultSet;
 use Laminas\Db\ResultSet\ResultSetInterface;
+use Laminas\Db\Sql\Sql;
 
 /**
  * Class Role
@@ -15,6 +16,21 @@ use Laminas\Db\ResultSet\ResultSetInterface;
  */
 class Role extends AbstractMapper
 {
+    /**
+     * Получение списка ролей по id пользователя
+     *
+     * @param int $_userId
+     *
+     * @return array
+     */
+    public function getRolesByUserId(int $_userId): array
+    {
+        $select = (new Sql($this->getAdapter()))->select('user_has_role');
+        $select->where(['user_id' => $_userId]);
+
+        return $this->hydrate($this->selectWith($select))->asArray();
+    }
+
     /**
      * @param ResultSetInterface $_result
      *
