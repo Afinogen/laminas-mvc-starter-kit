@@ -1,10 +1,12 @@
-# laminas-mvc-skeleton
+# laminas-mvc-starter-kit
 
 ## Introduction
 
 This is a skeleton application using the Laminas MVC layer and module
 systems. This application is meant to be used as a starting place for those
-looking to get their feet wet with Laminas MVC.
+looking to get their feet wet with Laminas MVC.  
+
+**This is my vision of the application skeleton. Use as is**
 
 ## Installation using Composer
 
@@ -55,6 +57,18 @@ After making changes to one of the above-mentioned `.dist` configuration files y
 either need to disable then enable development mode for the changes to take effect,
 or manually make matching updates to the `.dist`-less copies of those files.
 
+## Modules used
+
+laminas/laminas-db - connect to DB  
+laminas/laminas-mvc-form - use forms  
+laminas/laminas-session - use session for save auth user  
+symfony/console - run console commands  
+robmorgan/phinx - db migration  
+vlucas/phpdotenv - use .env files  
+tekill/env-diff - diff .env and .env.dist files
+laminas/laminas-authentication - auth user  
+laminas/laminas-permissions-acl - user roles
+
 ## Running Unit Tests
 
 To run the supplied skeleton unit tests, you need to do one of the following:
@@ -81,9 +95,16 @@ control. (If you want to make the modifications permanent, edit the
 ## Using docker-compose
 
 This skeleton provides a `docker-compose.yml` for use with
-[docker-compose](https://docs.docker.com/compose/); it
-uses the provided `Dockerfile` to build a docker image 
-for the `laminas` container created with `docker-compose`.
+[docker-compose](https://docs.docker.com/compose/).
+
+Docker-compose.yml included services:  
+ * nginx -  is an HTTP and reverse proxy server
+ * laminas  - application skeleton
+ * mysql  - db
+ * phpmyadmin - manager mysql db 
+ * mailhog - mail catcher  
+ 
+The configuration is located at folder docker/ . 
 
 Build and start the image and container using:
 
@@ -91,7 +112,7 @@ Build and start the image and container using:
 $ docker-compose up -d --build
 ```
 
-At this point, you can visit http://localhost:8080 to see the site running.
+At this point, you can visit http://localhost to see the site running.
 
 You can also run commands such as `composer` in the container.  The container 
 environment is named "laminas" so you will pass that value to 
