@@ -17,7 +17,7 @@ then please install as per the [documentation](https://getcomposer.org/doc/00-in
 To create your new Laminas MVC project:
 
 ```bash
-$ composer create-project -sdev laminas/laminas-mvc-skeleton path/to/install
+$ composer create-project -sdev afinogen/laminas-mvc-starter-kit path/to/install
 ```
 
 Once installed, you can test it out immediately using PHP's built-in web server:
