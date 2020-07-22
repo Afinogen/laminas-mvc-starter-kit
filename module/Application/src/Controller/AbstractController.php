@@ -12,6 +12,7 @@ use Laminas\Mvc\Plugin\FlashMessenger\FlashMessenger;
  * @package Application\Controller
  *
  * @method FlashMessenger flashMessenger()
+ * @method bool isAllowed($_resource, $_privilege = null)
  */
 class AbstractController extends AbstractActionController
 {

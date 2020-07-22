@@ -8,7 +8,9 @@ use Auth\Listener\RouteListener;
 use Laminas\EventManager\EventInterface;
 use Laminas\ModuleManager\Feature\BootstrapListenerInterface;
 use Laminas\ModuleManager\Feature\ConfigProviderInterface;
+use Laminas\ModuleManager\Feature\ControllerPluginProviderInterface;
 use Laminas\ModuleManager\Feature\ServiceProviderInterface;
+use Laminas\ModuleManager\Feature\ViewHelperProviderInterface;
 use Laminas\Mvc\ApplicationInterface;
 
 /**
@@ -16,7 +18,7 @@ use Laminas\Mvc\ApplicationInterface;
  *
  * @package Auth
  */
-class Module implements ConfigProviderInterface, ServiceProviderInterface, BootstrapListenerInterface
+class Module implements ConfigProviderInterface, ServiceProviderInterface, BootstrapListenerInterface, ViewHelperProviderInterface, ControllerPluginProviderInterface
 {
     /**
      * @param EventInterface $_e
@@ -50,5 +52,29 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface, Boots
         $provider = new ConfigProvider();
 
         return $provider->getDependencyConfig();
+    }
+
+    /**
+     * @return array
+     */
+    public function getViewHelperConfig(): array
+    {
+        return [
+            'factories' => [
+                'isAllowed' => View\Helper\IsAllowedFactory::class,
+            ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getControllerPluginConfig(): array
+    {
+        return [
+            'factories' => [
+                'isAllowed' => Controller\Plugin\IsAllowedFactory::class,
+            ],
+        ];
     }
 }

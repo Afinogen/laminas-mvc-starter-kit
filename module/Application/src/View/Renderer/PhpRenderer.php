@@ -12,9 +12,10 @@ use Laminas\Mvc\Plugin\FlashMessenger\View\Helper\FlashMessenger;
  * Class PhpRenderer
  *
  * @package Application\View\Renderer
- * @method string|FormRow formElement(ElementInterface $element)
- * @method string|FormElementErrors formElementErrors(ElementInterface $element)
+ * @method string|FormRow formElement(ElementInterface $_element)
+ * @method string|FormElementErrors formElementErrors(ElementInterface $_element)
  * @method FlashMessenger flashMessenger()
+ * @method bool isAllowed($_resource, $_privilege = null)
  */
 class PhpRenderer extends \Laminas\View\Renderer\PhpRenderer
 {

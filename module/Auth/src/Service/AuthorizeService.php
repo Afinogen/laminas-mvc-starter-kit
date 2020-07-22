@@ -5,6 +5,7 @@ namespace Auth\Service;
 
 use Auth\Mapper\Role;
 use Laminas\Permissions\Acl\Acl;
+use Laminas\Permissions\Acl\Exception\InvalidArgumentException;
 
 /**
  * Class AuthorizeService
@@ -50,7 +51,7 @@ class AuthorizeService
         $this->_isLoaded = false;
     }
 
-    public function loadRoles()
+    public function loadRoles(): void
     {
         /** @var \Auth\Entity\Role[] $roles */
         $roles = $this->_roleMapper->fetchAll()->asArray();
@@ -90,7 +91,12 @@ class AuthorizeService
      */
     public function isAllowed(string $_resource, string $_privilege = null): bool
     {
-        return $this->getAcl()->isAllowed(self::AGGREGATE_ROLE, $_resource, $_privilege);
+        try {
+            return $this->getAcl()->isAllowed(self::AGGREGATE_ROLE, $_resource, $_privilege);
+        } catch (InvalidArgumentException $e) {
+        }
+
+        return false;
     }
 
     /**
