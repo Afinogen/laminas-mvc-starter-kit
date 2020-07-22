@@ -1,4 +1,3 @@
-.vagrant/
 vendor/
 config/development.config.php
 data/cache/*
