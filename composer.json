@@ -28,13 +28,13 @@
     "laminas/laminas-log": "^2.11",
     "laminas/laminas-mvc-plugins": "^1.0.1",
     "laminas/laminas-session": "^2.9.1",
+    "laminas/laminas-authentication": "^2.7",
+    "laminas/laminas-permissions-acl": "^2.7",
     "symfony/console": "^5.1",
     "robmorgan/phinx": "^0.12.3",
     "symfony/yaml": "^5.1",
     "vlucas/phpdotenv": "^5.1",
-    "tekill/env-diff": "dev-add-new-version-symfony-console",
-    "laminas/laminas-authentication": "^2.7",
-    "laminas/laminas-permissions-acl": "^2.7"
+    "tekill/env-diff": "dev-add-new-version-symfony-console"
   },
   "autoload": {
     "psr-4": {

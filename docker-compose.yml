@@ -43,7 +43,7 @@ services:
     image: mysql:5.7
     environment:
       MYSQL_ROOT_PASSWORD: 12345
-      MYSQL_DATABASE: task-manager
+      MYSQL_DATABASE: laminas
     volumes:
       - ./data/docker-files/mysql-db:/var/lib/mysql # сохранение файлов БД на хосте
       #    - ./data/docker/mysql/my.cnf:/etc/mysql/my.cnf
